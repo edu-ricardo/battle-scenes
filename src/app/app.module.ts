@@ -12,12 +12,14 @@ import { CardsProvider } from '../providers/cards/cards';
 
 import { HttpClientModule } from '@angular/common/http'; 
 import { FilterCardPipe } from '../pipes/filter-card/filter-card';
+import { CardsPage } from '../pages/cards/cards';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     ListPage,
+    CardsPage,
     FilterCardPipe
   ],
   imports: [
@@ -29,7 +31,8 @@ import { FilterCardPipe } from '../pipes/filter-card/filter-card';
   entryComponents: [
     MyApp,
     HomePage,
-    ListPage
+    ListPage,
+    CardsPage
   ],
   providers: [
     StatusBar,
