@@ -23,9 +23,6 @@ script:
   # Use Chromium instead of Chrome.
   - export CHROME_BIN=chromium-browser
   - xvfb-run -a npm run test-ci
-  - ionic serve
-  - xvfb-run -a npm run e2e
-
 
 notifications:
   email:
