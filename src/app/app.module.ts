@@ -12,7 +12,13 @@ import { CardsProvider } from '../providers/cards/cards';
 
 import { HttpClientModule } from '@angular/common/http'; 
 import { FilterCardPipe } from '../pipes/filter-card/filter-card';
+
 import { CardsPage } from '../pages/cards/cards';
+import { PalavrasChavesPage } from '../pages/palavras-chaves/palavras-chaves';
+import { KeywordsProvider } from '../providers/keywords/keywords';
+import { FilterKeywordsPipe } from '../pipes/filter-keywords/filter-keywords';
+
+import { CacheModule } from "ionic-cache";
 
 @NgModule({
   declarations: [
@@ -21,11 +27,18 @@ import { CardsPage } from '../pages/cards/cards';
     ListPage,
     CardsPage,
     FilterCardPipe
+    PalavrasChavesPage,
+    FilterCardPipe,
+    FilterKeywordsPipe
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpClientModule
+    HttpClientModule,
+    CacheModule.forRoot()
+  ],
+  exports:[
+    CacheModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -33,11 +46,13 @@ import { CardsPage } from '../pages/cards/cards';
     HomePage,
     ListPage,
     CardsPage
+    PalavrasChavesPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     CardsProvider,
+    KeywordsProvider,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
