@@ -13,8 +13,9 @@
  Contar: {{ (all_cards || []).length }}
 
   <div *ngFor="let card of all_cards | filterCard : query">
-    {{ card.name }}
-    {{ card.shield }}
+    {{ card.name }} - 
+    {{ card.shield }} - 
+    {{ card.type }}
   </div>
 
 
