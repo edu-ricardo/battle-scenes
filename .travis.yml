@@ -22,7 +22,7 @@ install:
 script: 
   # Use Chromium instead of Chrome.
   - export CHROME_BIN=chromium-browser
-  - xvfb-run -a npm run test-ci
+  - xvfb-run -a yarn test --code-coverage --watch=false --browsers=ChromeNoSandbox
 
 notifications:
   email:
