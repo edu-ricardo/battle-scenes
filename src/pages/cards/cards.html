@@ -5,12 +5,13 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="dark">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Cards</ion-title>
   </ion-navbar>
+
 </ion-header>
 
 <ion-content padding>
@@ -21,6 +22,9 @@
       </ion-slide>
     </ion-slides>
     <ion-card-content>
+      <ion-fab right>
+          <button ion-fab mini color="dark" (click)="say(card.alter_ego)" ><ion-icon name="eye"></ion-icon></button>
+      </ion-fab>
       <ion-card-title>
           {{ card.name }}
       </ion-card-title>
@@ -46,4 +50,28 @@
         </ion-col>
     </ion-row>
   </ion-card>
+
+  <ion-fab left bottom edge>
+    <button ion-fab color="vibrant" mini><ion-icon name="add"></ion-icon></button>
+    <ion-fab-list side="top">
+      <button ion-fab color="vibrant"><ion-icon name="list"></ion-icon></button>
+      <button ion-fab color="vibrant"><ion-icon name="square-outline"></ion-icon></button>
+    </ion-fab-list>
+  </ion-fab>
+
 </ion-content>
+<ion-footer>
+  <ion-toolbar color="dark">
+    <ion-buttons start>
+      <button ion-button icon-right color="royal" (click)="previousPage()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <p style="color: white">Página {{ page }} de {{ max_pages }}</p>
+    <ion-buttons end>
+      <button ion-button icon-right color="royal" (click)="nextPage()">
+        <ion-icon name="arrow-forward"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

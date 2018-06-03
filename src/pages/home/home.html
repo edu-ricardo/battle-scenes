@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="marvel">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -8,9 +8,17 @@
 </ion-header>
 
 <ion-content padding>
-  <input [(ngModel)]="query" placeholder="search text goes here">
+  <ion-item>
+    <ion-label fixed>Filter</ion-label>
+    <ion-input type="text" [(ngModel)]="query" placeholder="search text goes here"></ion-input>
+  </ion-item>
 
- Contar: {{ (all_cards || []).length }}
+ <ion-card>
+   <ion-card-header><ion-card-title>Infos</ion-card-title> </ion-card-header>
+   <ion-card-content>
+      Contar: {{ (all_cards || []).length }}
+   </ion-card-content>    
+ </ion-card>
 
   <div *ngFor="let card of all_cards | filterCard : query">
     {{ card.name }} - 
