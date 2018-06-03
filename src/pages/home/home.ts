@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { CardsProvider } from '../../providers/cards/cards';
 
-import { Cards } from "../../models/simple-card";
+import { Card } from "../../models/card";
 
 @Component({
   selector: 'page-home',
@@ -12,11 +12,11 @@ export class HomePage {
   
   all_cards: any;
   query: string;
-  allcards: any[];
+  allcards: Card[];
 
   constructor(public navCtrl: NavController, public cards: CardsProvider) {
       this.cards.getO().subscribe((value) => {
-        this.all_cards = value;
+        this.all_cards = value;                
       });  
       
   }

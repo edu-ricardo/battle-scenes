@@ -11,26 +11,27 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { CardsProvider } from '../providers/cards/cards';
 
 import { HttpClientModule } from '@angular/common/http'; 
-import { FilterCardPipe } from '../pipes/filter-card/filter-card';
+
+import { CardsPage } from '../pages/cards/cards';
 import { PalavrasChavesPage } from '../pages/palavras-chaves/palavras-chaves';
 import { KeywordsProvider } from '../providers/keywords/keywords';
-import { FilterKeywordsPipe } from '../pipes/filter-keywords/filter-keywords';
 
 import { CacheModule } from "ionic-cache";
+import { PipesModule } from '../pipes/pipes.module';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     ListPage,
-    PalavrasChavesPage,
-    FilterCardPipe,
-    FilterKeywordsPipe
+    CardsPage,
+    PalavrasChavesPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     HttpClientModule,
+    PipesModule,
     CacheModule.forRoot()
   ],
   exports:[
@@ -41,6 +42,7 @@ import { CacheModule } from "ionic-cache";
     MyApp,
     HomePage,
     ListPage,
+    CardsPage, 
     PalavrasChavesPage
   ],
   providers: [
