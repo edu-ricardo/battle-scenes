@@ -4,6 +4,8 @@ import { Injectable } from '@angular/core';
 import { CacheService } from "ionic-cache";
 
 import { Observable } from "rxjs/observable";
+import { Card } from '../../models/card';
+import { Count } from '../../models/count';
 /*
   Generated class for the CardsProvider provider.
 
@@ -21,9 +23,17 @@ export class CardsProvider {
     return this.http.get('http://104.236.125.240/api/cardsinfo').toPromise();
   }
 
-  public getO(): Observable<Object> {
+  public getO(): Observable<Card[]> {
     let result = this.http.get('http://104.236.125.240/api/cardsinfo');
     return this.cache.loadFromObservable('http://104.236.125.240/api/cardsinfo',result);    
+  }
+
+  /**
+   * count
+   */
+  public count():Observable<Count> {
+    let result = this.http.get('http://104.236.125.240/api/cardsinfo/count');
+    return this.cache.loadFromObservable('http://104.236.125.240/api/cardsinfo/count', result);
   }
 
 }

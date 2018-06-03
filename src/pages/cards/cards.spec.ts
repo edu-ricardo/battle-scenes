@@ -5,7 +5,8 @@ import { CardsPage } from './cards';
 import { IonicModule, Platform, NavController, NavParams} from 'ionic-angular/index';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { NavParamsMock } from '../../../test-config/mocks-ionic';
+import { NavParamsMock, CardsProviderMock } from '../../../test-config/mocks-ionic';
+import { CardsProvider } from '../../providers/cards/cards';
 
 describe('Cards', () => {
   let de: DebugElement;
@@ -20,7 +21,8 @@ describe('Cards', () => {
       ],
       providers: [
         NavController,
-        { provide: NavParams, useClass: NavParamsMock }
+        { provide: NavParams, useClass: NavParamsMock },
+        { provide: CardsProvider, useClass: CardsProviderMock}
       ]
     });
   }));
@@ -32,7 +34,7 @@ describe('Cards', () => {
   });
 
   it('should create component', () => {
-    let element = fixture.debugElement.query(By.css('#nome'));
+    let element = fixture.debugElement.query(By.css('[name="menu"]'));
     expect(element).not.toBeNull();
   });
 });

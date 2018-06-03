@@ -14,7 +14,36 @@
 </ion-header>
 
 <ion-content padding>
-  <div id="nome">
-
-  </div>
+  <ion-card *ngFor="let card of cards">
+    <ion-slides pager>
+      <ion-slide *ngFor="let url of card.ImagesUrl">
+        <img height="50px" width="50px" [src]="url" [alt]="card.name"/>
+      </ion-slide>
+    </ion-slides>
+    <ion-card-content>
+      <ion-card-title>
+          {{ card.name }}
+      </ion-card-title>
+      <p>
+        <b>{{ card.action }}</b><br/>
+      </p>
+      <blockquote>
+        {{ card.action_text }}
+      </blockquote>  
+    </ion-card-content>
+    <ion-row no-padding>
+        <ion-col>
+          <button ion-button clear small color="primary" icon-start>
+            <ion-icon name='add-circle'></ion-icon>
+            Tenho
+          </button>
+        </ion-col>
+        <ion-col text-right>
+          <button ion-button clear small color="secondary" icon-start>
+            <ion-icon name='square-outline'></ion-icon>
+            Deck
+          </button>
+        </ion-col>
+    </ion-row>
+  </ion-card>
 </ion-content>
