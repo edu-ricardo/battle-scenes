@@ -19,19 +19,33 @@ import { KeywordsProvider } from '../providers/keywords/keywords';
 import { CacheModule } from "ionic-cache";
 import { PipesModule } from '../pipes/pipes.module';
 
+import { LoginPage } from '../pages/login/login';
+
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { firebaseConfig } from '../config';
+import { AuthService } from '../providers/auth-service/auth-service';
+
+import { NgxErrorsModule } from '@ultimate/ngxerrors';
+import { SignupPage } from '../pages/signup/signup';
+
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     ListPage,
     CardsPage,
-    PalavrasChavesPage
+    PalavrasChavesPage,
+    LoginPage,
+    SignupPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     HttpClientModule,
+    AngularFireModule.initializeApp(firebaseConfig.fire),
     PipesModule,
+    NgxErrorsModule,
     CacheModule.forRoot()
   ],
   exports:[
@@ -43,14 +57,18 @@ import { PipesModule } from '../pipes/pipes.module';
     HomePage,
     ListPage,
     CardsPage, 
-    PalavrasChavesPage
+    LoginPage,
+    PalavrasChavesPage,
+    SignupPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     CardsProvider,
     KeywordsProvider,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    AngularFireAuth,
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    AuthService
   ]
 })
 export class AppModule {}
