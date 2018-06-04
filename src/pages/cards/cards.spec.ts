@@ -7,6 +7,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { NavParamsMock, CardsProviderMock } from '../../../test-config/mocks-ionic';
 import { CardsProvider } from '../../providers/cards/cards';
+import { AuthService } from "../../providers/auth-service/auth-service";
 
 describe('Cards', () => {
   let de: DebugElement;
@@ -22,7 +23,8 @@ describe('Cards', () => {
       providers: [
         NavController,
         { provide: NavParams, useClass: NavParamsMock },
-        { provide: CardsProvider, useClass: CardsProviderMock}
+        { provide: CardsProvider, useClass: CardsProviderMock},
+        AuthService
       ]
     });
   }));
