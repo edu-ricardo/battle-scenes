@@ -27,6 +27,18 @@ export class AuthService {
     return this.user.uid;
   }
 
+  get ImageUrl():string{
+    return this.user.photoURL;
+  }
+
+  get nome():string{
+    return this.user.displayName;
+  }
+
+  get authenticated(): boolean{
+    return this.user != null;
+  }
+
   signInWithEmail(credentials) {
 		console.log('Sign in with email');
 		return this.afAuth.auth.signInWithEmailAndPassword(credentials.email,

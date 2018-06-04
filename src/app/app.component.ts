@@ -9,7 +9,7 @@ import { CardsPage } from '../pages/cards/cards';
 import { PalavrasChavesPage } from '../pages/palavras-chaves/palavras-chaves';
 import { LoginPage } from '../pages/login/login';
 import { AuthService } from '../providers/auth-service/auth-service';
-
+import * as firebase from 'firebase/app';
 @Component({
   templateUrl: 'app.html'
 })
@@ -17,10 +17,10 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any = LoginPage;// HomePage;
-
+  user: firebase.User;
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private auth: AuthService) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public auth: AuthService) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -29,8 +29,7 @@ export class MyApp {
       { title: 'Cards', component: CardsPage },
       { title: 'Lista 1', component: ListPage },
       { title: 'Palavras Chaves', component: PalavrasChavesPage }
-    ];
-
+    ];    
   }
 
   initializeApp() {
@@ -40,6 +39,20 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+
+    this.auth.afAuth.authState
+    .subscribe(
+      user => {
+        if (user) {
+          this.rootPage = HomePage;
+        } else {
+          this.rootPage = LoginPage;
+        }
+      },
+      () => {
+        this.rootPage = LoginPage;
+      }
+    );    
   }
 
   openPage(page) {
