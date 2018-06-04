@@ -4,8 +4,13 @@
       <ion-title>Menu</ion-title>
     </ion-toolbar>
   </ion-header>
-
   <ion-content class="menu">
+    <ion-item *ngIf="auth.authenticated">
+      <ion-avatar item-start>
+          <img [src]="auth.ImageUrl"/>
+      </ion-avatar>
+      <h2>{{ auth.nome }}</h2>
+    </ion-item>
     <ion-list class="menu">
       <button menuClose color="marvel" ion-item *ngFor="let p of pages" (click)="openPage(p)">
         {{p.title}}
