@@ -22,9 +22,11 @@
       <button ion-button color="dark" item-end (click)="logout()">Logout</button>
     </ion-item>
     <ion-list class="menu">
-      <button menuClose color="marvel" ion-item *ngFor="let p of pages" (click)="openPage(p)">
-        {{p.title}}
-      </button>
+      <div *ngFor="let p of pages" color="marvel">
+        <button menuClose ion-item color="marvel" *ngIf="canShowLink(p)" (click)="openPage(p)">
+          {{p.title}}
+        </button>
+      </div>
     </ion-list>
   </ion-content>
 

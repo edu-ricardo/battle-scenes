@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, MenuController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -18,18 +18,22 @@ export class MyApp {
 
   rootPage: any = LoginPage;// HomePage;
   user: firebase.User;
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{title: string, component: any, authNeed?: boolean}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public auth: AuthService) {
+  constructor(public platform: Platform, public menu: MenuController,public statusBar: StatusBar, public splashScreen: SplashScreen, public auth: AuthService) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Home', component: HomePage },
       { title: 'Cards', component: CardsPage },
-      { title: 'Lista 1', component: ListPage },
+      { title: 'Lista 1', component: ListPage, authNeed: true },
       { title: 'Palavras Chaves', component: PalavrasChavesPage }
     ];    
+  }
+
+  canShowLink(p:{title: string, component: any, authNeed?: boolean}):boolean{
+    return (!p.authNeed) || (p.authNeed && this.auth.authenticated);
   }
 
   initializeApp() {
@@ -57,6 +61,7 @@ export class MyApp {
 
   logout(){
     this.auth.signOut();
+    this.menu.close();
     this.nav.setRoot(LoginPage);
   }
 
