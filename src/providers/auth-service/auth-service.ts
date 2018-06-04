@@ -45,6 +45,10 @@ export class AuthService {
 			 credentials.password);
   }
   
+  signOut(): Promise<void> {
+    return this.afAuth.auth.signOut();
+  }
+
   signInWithGoogle() {
 		console.log('Sign in with google');
 		return this.oauthSignIn(new firebase.auth.GoogleAuthProvider());
