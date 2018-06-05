@@ -57,7 +57,7 @@ export class LoginPage {
     this.auth.signInWithGoogle() 
       .then(
         () => this.navCtrl.setRoot(HomePage),
-        error => console.log(error.message)
+        error => this.loginError = error.message
       );
   }  
 }
