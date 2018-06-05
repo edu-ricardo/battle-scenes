@@ -28,6 +28,7 @@ import { AuthService } from '../providers/auth-service/auth-service';
 
 import { NgxErrorsModule } from '@ultimate/ngxerrors';
 import { SignupPage } from '../pages/signup/signup';
+import { MyCardsProvider } from '../providers/my-cards/my-cards';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { SignupPage } from '../pages/signup/signup';
     KeywordsProvider,
     AngularFireAuth,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthService
+    AuthService,
+    MyCardsProvider
   ]
 })
 export class AppModule {}

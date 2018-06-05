@@ -37,7 +37,7 @@
     </ion-card-content>
     <ion-row no-padding>
         <ion-col>
-          <button ion-button clear small color="primary" icon-start>
+          <button ion-button clear small (click)="addToMyCards(card.id, card.name)" color="primary" icon-start>
             <ion-icon name='add-circle'></ion-icon>
             Tenho
           </button>

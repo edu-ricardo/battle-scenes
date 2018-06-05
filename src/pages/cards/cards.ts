@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
 import { CardsProvider } from '../../providers/cards/cards';
 import { Card, CardUtils } from '../../models/card';
+import { AuthService } from '../../providers/auth-service/auth-service';
+import { MyCard } from '../../models/my-card';
+import { MyCardsProvider } from '../../providers/my-cards/my-cards';
 
 /**
  * Generated class for the CardsPage page.
@@ -23,7 +26,14 @@ export class CardsPage {
   public page: number;
   public max_pages: number;
 
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController,public navParams: NavParams, public cards_service: CardsProvider) {  
+  constructor(public navCtrl: NavController, 
+    public alertCtrl: AlertController,
+    public navParams: NavParams, 
+    public cards_service: CardsProvider, 
+    public auth: AuthService,
+    public cardService: MyCardsProvider,
+    public toastCtrl: ToastController) {  
+    
     cards_service.count().subscribe((count) => {
       this.count_cards = count.count;
 
@@ -78,5 +88,20 @@ export class CardsPage {
     this.cards.length = 0;
     
     this.loadCards();
+  }
+
+  addToMyCards(cardId: string, cardName: string){
+    let mycard = new MyCard();
+    mycard.cardId = cardId;
+    mycard.uid = this.auth.Id;
+
+    let toast = this.toastCtrl.create({
+      message: 'Card '+cardName+' adicionado aos Meus Cards',
+      duration: 3000
+    });
+
+    this.cardService.post(mycard).subscribe((obs) => {
+      toast.present();
+    });
   }
 }
