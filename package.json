@@ -37,11 +37,13 @@
         "@ultimate/ngxerrors": "^1.4.0",
         "angularfire2": "^5.0.0-rc.10",
         "cordova-android": "^6.2.3",
+        "cordova-plugin-buildinfo": "^2.0.1",
         "cordova-plugin-device": "^2.0.2",
         "cordova-plugin-ionic-keyboard": "^2.0.5",
         "cordova-plugin-ionic-webview": "^1.1.19",
         "cordova-plugin-splashscreen": "^5.0.2",
         "cordova-plugin-whitelist": "^1.3.3",
+        "cordova-universal-links-plugin": "^1.2.1",
         "firebase": "^5.0.4",
         "ionic-angular": "3.9.2",
         "ionic-cache": "^3.1.0",
@@ -83,7 +85,14 @@
             "cordova-plugin-ionic-keyboard": {},
             "cordova-plugin-ionic-webview": {},
             "cordova-plugin-splashscreen": {},
-            "cordova-plugin-whitelist": {}
+            "cordova-plugin-whitelist": {},
+            "cordova-universal-links-plugin": {},
+            "cordova-plugin-buildinfo": {},
+            "cordova-plugin-browsertab": {},
+            "cordova-plugin-inappbrowser": {},
+            "cordova-plugin-customurlscheme": {
+                "URL_SCHEME": "io.ionic.starter"
+            }
         },
         "platforms": [
             "android"
