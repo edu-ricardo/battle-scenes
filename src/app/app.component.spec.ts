@@ -11,6 +11,8 @@ import {
   SplashScreenMock
 } from '../../test-config/mocks-ionic';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireModule } from 'angularfire2';
+import { firebaseConfig } from '../config';
 
 describe('MyApp Component', () => {
   let fixture;
@@ -20,7 +22,8 @@ describe('MyApp Component', () => {
     TestBed.configureTestingModule({
       declarations: [MyApp],
       imports: [
-        IonicModule.forRoot(MyApp)
+        IonicModule.forRoot(MyApp),
+        AngularFireModule.initializeApp(firebaseConfig.fire)
       ],
       providers: [
         { provide: StatusBar, useClass: StatusBarMock },
