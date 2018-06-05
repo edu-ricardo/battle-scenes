@@ -10,6 +10,7 @@ import {
   StatusBarMock,
   SplashScreenMock
 } from '../../test-config/mocks-ionic';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 describe('MyApp Component', () => {
   let fixture;
@@ -25,7 +26,8 @@ describe('MyApp Component', () => {
         { provide: StatusBar, useClass: StatusBarMock },
         { provide: SplashScreen, useClass: SplashScreenMock },
         { provide: Platform, useClass: PlatformMock },
-        AuthService
+        AuthService,
+        AngularFireAuth
       ]
     })
   }));
