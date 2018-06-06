@@ -79,4 +79,23 @@ export class CardsPage {
     
     this.loadCards();
   }
+
+  doInfinite(infiniteScroll) {
+    console.log('Begin async operation');
+    if (this.page == this.max_pages)
+      return;
+    this.page++;
+    this.skip = (this.page - 1) * this.limit;
+  
+    this.cards_service.get(this.limit, this.skip)
+    .subscribe((value) => {  
+      value.forEach(element => {
+        CardUtils.getImagesUrl(element);
+
+        this.cards.push(element);
+        infiniteScroll.complete();
+      });
+    });
+  }
+
 }

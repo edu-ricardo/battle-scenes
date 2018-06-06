@@ -15,63 +15,41 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-card *ngFor="let card of cards">
-    <ion-slides pager>
-      <ion-slide *ngFor="let url of card.ImagesUrl">
-        <img height="50px" width="50px" [src]="url" [alt]="card.name"/>
-      </ion-slide>
-    </ion-slides>
-    <ion-card-content>
-      <ion-fab right>
-          <button ion-fab mini color="dark" (click)="say(card.alter_ego)" ><ion-icon name="eye"></ion-icon></button>
-      </ion-fab>
-      <ion-card-title>
-          {{ card.name }}
-      </ion-card-title>
-      <p>
-        <b>{{ card.action }}</b><br/>
-      </p>
-      <blockquote>
-        {{ card.action_text }}
-      </blockquote>  
-    </ion-card-content>
-    <ion-row no-padding>
-        <ion-col>
-          <button ion-button clear small color="primary" icon-start>
-            <ion-icon name='add-circle'></ion-icon>
-            Tenho
-          </button>
-        </ion-col>
-        <ion-col text-right>
-          <button ion-button clear small color="secondary" icon-start>
-            <ion-icon name='square-outline'></ion-icon>
-            Deck
-          </button>
-        </ion-col>
-    </ion-row>
-  </ion-card>
+  <ion-list>
+    <ion-card *ngFor="let card of cards">
+      <ion-slides pager>
+        <ion-slide *ngFor="let url of card.ImagesUrl">
+          <img height="50px" width="50px" [src]="url" [alt]="card.name"/>
+        </ion-slide>
+      </ion-slides>
+      <ion-card-content>
+        <ion-fab right>
+            <button ion-fab mini color="dark" (click)="say(card.alter_ego)" ><ion-icon name="eye"></ion-icon></button>
+        </ion-fab>
+        <ion-card-title>
+            {{ card.name }}
+        </ion-card-title>
+        <h2>{{ card.action }}</h2>
+        {{ card.action_text }}  
+      </ion-card-content>
+      <ion-row no-padding>
+          <ion-col>
+            <button ion-button clear small color="primary" icon-start>
+              <ion-icon name='add-circle'></ion-icon>
+              Tenho
+            </button>
+          </ion-col>
+          <ion-col text-right>
+            <button ion-button clear small color="secondary" icon-start>
+              <ion-icon name='square-outline'></ion-icon>
+              Deck
+            </button>
+          </ion-col>
+      </ion-row>
+    </ion-card>
+  </ion-list>
 
-  <ion-fab left bottom edge>
-    <button ion-fab color="vibrant" mini><ion-icon name="add"></ion-icon></button>
-    <ion-fab-list side="top">
-      <button ion-fab color="vibrant"><ion-icon name="list"></ion-icon></button>
-      <button ion-fab color="vibrant"><ion-icon name="square-outline"></ion-icon></button>
-    </ion-fab-list>
-  </ion-fab>
-
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>
-<ion-footer>
-  <ion-toolbar color="dark">
-    <ion-buttons start>
-      <button ion-button icon-right color="royal" (click)="previousPage()">
-        <ion-icon name="arrow-back"></ion-icon>
-      </button>
-    </ion-buttons>
-    <p style="color: white">Página {{ page }} de {{ max_pages }}</p>
-    <ion-buttons end>
-      <button ion-button icon-right color="royal" (click)="nextPage()">
-        <ion-icon name="arrow-forward"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-footer>
