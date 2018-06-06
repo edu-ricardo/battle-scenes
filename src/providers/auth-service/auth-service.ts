@@ -28,7 +28,7 @@ export class AuthService {
   }
 
   get ImageUrl():string{
-    return this.user.photoURL;
+    return this.user.photoURL || 'assets/imgs/default-user.png';
   }
 
   get nome():string{

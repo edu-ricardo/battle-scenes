@@ -24,6 +24,12 @@ export class MyCardsProvider {
     return this.cache.loadFromObservable(uri, result);
   }
 
+  getByUserId(uid: string):Observable<MyCard[]>{
+    let uri = dataMlab.baseMlabApi + '/collections/cards?q={"uid": "'+uid+'"}&apiKey='+dataMlab.apiKey;
+    let result = this.http.get<MyCard[]>(uri);
+    return result;
+  }
+
   post(card: MyCard):Observable<any>{
     let uri = dataMlab.baseMlabApi + '/collections/cards?apiKey='+dataMlab.apiKey;
     return this.http.post(uri, JSON.stringify(card), { headers: { 'Content-Type': 'application/json' }});

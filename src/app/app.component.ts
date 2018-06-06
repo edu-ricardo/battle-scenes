@@ -4,12 +4,12 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
 import { CardsPage } from '../pages/cards/cards';
 import { PalavrasChavesPage } from '../pages/palavras-chaves/palavras-chaves';
 import { LoginPage } from '../pages/login/login';
 import { AuthService } from '../providers/auth-service/auth-service';
 import * as firebase from 'firebase/app';
+import { MyCardsPage } from '../pages/my-cards/my-cards';
 @Component({
   templateUrl: 'app.html'
 })
@@ -27,7 +27,8 @@ export class MyApp {
     this.pages = [
       { title: 'Home', component: HomePage, icon: 'home' },
       { title: 'Cards', component: CardsPage, icon: 'albums' },
-      { title: 'Palavras Chaves', component: PalavrasChavesPage, icon: 'key' }
+      { title: 'Palavras Chaves', component: PalavrasChavesPage, icon: 'key' },
+      { title: 'Meus Cards', component: MyCardsPage, icon: 'archive', authNeed: true }
     ];    
   }
 

@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { CacheService } from "ionic-cache";
 
 import { Observable } from "rxjs/observable";
-import { Card } from '../../models/card';
+import { CardInfo, CardListItem } from '../../models/card';
 import { Count } from '../../models/count';
 /*
   Generated class for the CardsProvider provider.
@@ -14,6 +14,7 @@ import { Count } from '../../models/count';
 */
 
 const BASE_URI_CARDS = 'http://104.236.125.240/api/cardsinfo';
+const BASE_URI_CARD = 'http://104.236.125.240/api/cards';
 
 @Injectable()
 export class CardsProvider {
@@ -22,22 +23,32 @@ export class CardsProvider {
     console.log('Hello CardsProvider Provider');  
   }
 
-  public getO(): Observable<Card[]> {
+  public getO(): Observable<CardInfo[]> {
     let result = this.http.get(BASE_URI_CARDS);
     return this.cache.loadFromObservable(BASE_URI_CARDS,result);    
   }
 
-  /**
-   * count
-   */
   public count():Observable<Count> {
     let result = this.http.get(BASE_URI_CARDS + '/count');
     return this.cache.loadFromObservable(BASE_URI_CARDS + '/count', result);
   }
 
-  public get(limit?: number, skip?: number):Observable<Card[]>{
+  public get(limit?: number, skip?: number):Observable<CardInfo[]>{
     let filter_str = '?filter[limit]='+limit+'&filter[skip]='+skip;
-    let result = this.http.get<Card[]>(BASE_URI_CARDS + filter_str);
+    let result = this.http.get<CardInfo[]>(BASE_URI_CARDS + filter_str);
     return this.cache.loadFromObservable(BASE_URI_CARDS + filter_str, result);
+  }
+
+  public getCardsFromList(idList: Array<string>):Observable<CardListItem[]>{
+    let f = {
+      where: {
+        id: {
+          inq: idList
+        }
+      }
+    };
+    let uri = BASE_URI_CARD + '?filter='+JSON.stringify(f);
+    let result = this.http.get<CardListItem[]>(uri);
+    return result;
   }
 }

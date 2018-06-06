@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, ToastController, AlertButton } from 'ionic-angular';
 import { CardsProvider } from '../../providers/cards/cards';
-import { Card, CardUtils } from '../../models/card';
+import { CardInfo, CardUtils } from '../../models/card';
 import { AuthService } from '../../providers/auth-service/auth-service';
 import { MyCard } from '../../models/my-card';
 import { MyCardsProvider } from '../../providers/my-cards/my-cards';
@@ -18,7 +18,7 @@ import { MyCardsProvider } from '../../providers/my-cards/my-cards';
 })
 export class CardsPage {
 
-  public cards: Array<Card>;
+  public cards: Array<CardInfo>;
   public count_cards: number;
 
   public limit: number;
@@ -91,11 +91,11 @@ export class CardsPage {
     this.loadCards();
   }
 
-  addToMyCards(card: Card){
+  addToMyCards(card: CardInfo){
     let mycard = new MyCard();
 
     if(card.card_list.length == 1){
-      mycard.cardId = card.id;
+      mycard.cardId = card.main_cardId;
       mycard.uid = this.auth.Id;
       
       let toast = this.toastCtrl.create({
