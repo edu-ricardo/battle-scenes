@@ -18,17 +18,16 @@ export class MyApp {
 
   rootPage: any = LoginPage;// HomePage;
   user: firebase.User;
-  pages: Array<{title: string, component: any, authNeed?: boolean}>;
+  pages: Array<{title: string, component: any, icon: string, authNeed?: boolean}>;
 
   constructor(public platform: Platform, public menu: MenuController,public statusBar: StatusBar, public splashScreen: SplashScreen, public auth: AuthService) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'Cards', component: CardsPage },
-      { title: 'Lista 1', component: ListPage, authNeed: true },
-      { title: 'Palavras Chaves', component: PalavrasChavesPage }
+      { title: 'Home', component: HomePage, icon: 'home' },
+      { title: 'Cards', component: CardsPage, icon: 'albums' },
+      { title: 'Palavras Chaves', component: PalavrasChavesPage, icon: 'key' }
     ];    
   }
 

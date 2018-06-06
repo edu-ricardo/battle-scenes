@@ -1,10 +1,13 @@
 <ion-menu [content]="content">
-  <ion-header>
-    <ion-toolbar color="marvel">
-      <ion-title>Menu</ion-title>
-    </ion-toolbar>
-  </ion-header>
   <ion-content class="menu">
+    <ion-item color="marvel-light" *ngIf="auth.authenticated">
+      <ion-avatar item-start>
+          <img [src]="auth.ImageUrl"/>
+      </ion-avatar>
+      <h2>{{ auth.nome }}</h2>
+      <p>{{ auth.email }}</p>
+      <button ion-button color="dark" item-end (click)="logout()">Logout</button>
+    </ion-item>
     <ion-item color="light-red">
       <img src="assets/imgs/logo_bs.png" item-start/>  
       <h2>
@@ -14,16 +17,10 @@
         Bom jogo!
       </p>      
     </ion-item>
-    <ion-item color="marvel-light" *ngIf="auth.authenticated">
-      <ion-avatar item-start>
-          <img [src]="auth.ImageUrl"/>
-      </ion-avatar>
-      <h2>{{ auth.nome }}</h2>
-      <button ion-button color="dark" item-end (click)="logout()">Logout</button>
-    </ion-item>
     <ion-list class="menu">
-      <div *ngFor="let p of pages" color="marvel">
+      <div *ngFor="let p of pages" color="marvel">        
         <button menuClose ion-item color="marvel" *ngIf="canShowLink(p)" (click)="openPage(p)">
+          <ion-icon [name]="p.icon" item-start></ion-icon>
           {{p.title}}
         </button>
       </div>

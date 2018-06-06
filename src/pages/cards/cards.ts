@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ToastController, AlertButton } from 'ionic-angular';
 import { CardsProvider } from '../../providers/cards/cards';
 import { Card, CardUtils } from '../../models/card';
 import { AuthService } from '../../providers/auth-service/auth-service';
@@ -60,6 +60,7 @@ export class CardsPage {
       });
     });
   }
+
   say(value?: any){
     console.log(value);
     let alert = this.alertCtrl.create({
@@ -90,19 +91,50 @@ export class CardsPage {
     this.loadCards();
   }
 
-  addToMyCards(cardId: string, cardName: string){
+  addToMyCards(card: Card){
     let mycard = new MyCard();
-    mycard.cardId = cardId;
-    mycard.uid = this.auth.Id;
 
-    let toast = this.toastCtrl.create({
-      message: 'Card '+cardName+' adicionado aos Meus Cards',
-      duration: 3000
-    });
+    if(card.card_list.length == 1){
+      mycard.cardId = card.id;
+      mycard.uid = this.auth.Id;
+      
+      let toast = this.toastCtrl.create({
+        message: 'Card '+card.name+' adicionado aos Meus Cards',
+        duration: 3000
+      });
+  
+      this.cardService.post(mycard).subscribe((obs) => {
+        toast.present();
+      });    
+    }else{
+      let opcoes = new Array<AlertButton>();
+      for (let index = 0; index < card.card_list.length; index++) {
+        const element = card.card_list[index];        
+        opcoes.push({
+          text: element.code,
+          handler: () => {
+            mycard.cardId = element.id;
+            mycard.uid = this.auth.Id;
+            
+            let toast = this.toastCtrl.create({
+              message: 'Card '+card.name+' adicionado aos Meus Cards',
+              duration: 3000
+            });
+        
+            this.cardService.post(mycard).subscribe((obs) => {
+              toast.present();
+            });   
+          }
+        });
+      }
+      let alert = this.alertCtrl.create({
+        buttons: opcoes,
+        title: 'Selecionar card',
+        message: 'Esse card tem mais de uma versão. escolha a sua.'
+      });
 
-    this.cardService.post(mycard).subscribe((obs) => {
-      toast.present();
-    });
+      alert.present();
+    }
   }
 
   doInfinite(infiniteScroll) {

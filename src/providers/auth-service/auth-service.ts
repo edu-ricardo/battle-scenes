@@ -35,6 +35,10 @@ export class AuthService {
     return this.user.displayName;
   }
 
+  get email():string{
+    return this.user.email;
+  }
+
   get authenticated(): boolean{
     return this.user != null;
   }
