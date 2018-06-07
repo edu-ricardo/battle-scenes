@@ -10,9 +10,21 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Cards</ion-title>
+    <button ion-button menuToggle="right" end>
+        <ion-icon name='options'></ion-icon>
+    </button>
   </ion-navbar>
 
 </ion-header>
+<ion-menu side="right" [content]="mycontent">
+  <ion-content>
+    <ion-list>
+      <ion-item><h2>Filtros</h2></ion-item>
+      
+    </ion-list>
+  </ion-content>
+</ion-menu>
+<ion-nav #mycontent></ion-nav>
 
 <ion-content padding>
   <ion-list>
@@ -52,4 +64,12 @@
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>
+
+  <ion-fab bottom right>
+    <button ion-fab mini color="marvel-light"><ion-icon name="ios-list-box-outline"></ion-icon></button>
+    <ion-fab-list side="top">
+      <button ion-fab color="dark"><ion-icon name="document"><div class="dark">Nome</div></ion-icon></button>
+      <button ion-fab color="dark"><ion-icon name="bookmarks"><div class="dark">Tipo</div></ion-icon></button>
+    </ion-fab-list>
+  </ion-fab>
 </ion-content>
