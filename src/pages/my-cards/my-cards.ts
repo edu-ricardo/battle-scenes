@@ -43,12 +43,18 @@ export class MyCardsPage {
 
 
   doRefresh(refresher) { 
-    console.log('Begin async operation', refresher);
+    this.mycardsService.getByUserId(this.auth.Id, true).subscribe((value) => {
+      let cids = new Array<string>();
+      for (let index = 0; index < value.length; index++) {
+        const element = value[index];
+        cids.push(element.cardId);
+      }
 
-    setTimeout(() => {
-      console.log('Async operation has ended');
-      refresher.complete();
-    }, 2000);
+      this.cardsProvider.getCardsFromList(cids, true).subscribe((values) => {
+        this.myCards = values;
+        refresher.complete();
+      });
+    });
   }
 
   ionViewDidLoad() {

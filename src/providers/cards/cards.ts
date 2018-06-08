@@ -33,13 +33,28 @@ export class CardsProvider {
     return this.cache.loadFromObservable(BASE_URI_CARDS + '/count', result);
   }
 
-  public get(limit?: number, skip?: number):Observable<CardInfo[]>{
-    let filter_str = '?filter[limit]='+limit+'&filter[skip]='+skip;
+  public get(limit?: number, skip?: number, order?: string, orderType?: string, where?: any):Observable<CardInfo[]>{
+    let filterJson = {
+      limit: limit,
+      skip: skip,
+      order: '', 
+      where: ''
+    };
+
+    if (order) {      
+      filterJson.order = order+' '+ (orderType || 'DESC');
+    }
+
+    if (where) {
+      filterJson.where = where;
+    }
+    let filter_str = '?filter='+JSON.stringify(filterJson);
     let result = this.http.get<CardInfo[]>(BASE_URI_CARDS + filter_str);
     return this.cache.loadFromObservable(BASE_URI_CARDS + filter_str, result);
   }
 
-  public getCardsFromList(idList: Array<string>):Observable<CardListItem[]>{
+  public getCardsFromList(idList: Array<string>, forceRefresher?: boolean):Observable<CardListItem[]>{
+    let groupKey = 'mycards';
     let f = {
       where: {
         id: {
@@ -47,8 +62,12 @@ export class CardsProvider {
         }
       }
     };
+    if (forceRefresher) {
+      this.cache.clearGroup(groupKey);
+    }
+
     let uri = BASE_URI_CARD + '?filter='+JSON.stringify(f);
     let result = this.http.get<CardListItem[]>(uri);
-    return result;
+    return this.cache.loadFromObservable(uri,result,groupKey);
   }
 }

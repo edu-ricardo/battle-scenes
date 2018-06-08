@@ -20,8 +20,41 @@
   <ion-content>
     <ion-list>
       <ion-item><h2>Filtros</h2></ion-item>
-      
-    </ion-list>
+      <ion-item>
+          <ion-label color="primary" floating>Nome</ion-label>
+          <ion-input [(ngModel)]="nameCard"></ion-input>
+      </ion-item>
+        <ion-list radio-group [(ngModel)]="typeCard">
+
+          <ion-list-header>
+            Tipo
+          </ion-list-header>
+        
+          <ion-item>
+            <ion-label>Personagem</ion-label>
+            <ion-radio value="Personagem"></ion-radio>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Cenário</ion-label>
+            <ion-radio value="Cenário"></ion-radio>
+          </ion-item>
+          
+          <ion-item>
+            <ion-label>Habilidade</ion-label>
+            <ion-radio value="Habilidade"></ion-radio>
+          </ion-item>
+  
+          <ion-item>
+            <ion-label>Suporte</ion-label>
+            <ion-radio value="Suporte"></ion-radio>
+          </ion-item>          
+        </ion-list>
+      <ion-item>
+        <button ion-button round outline color="secondary" menuClose="right" (click)="aplicarFiltros()" start>Aplicar</button>
+        <button ion-button round outline color="danger" (click)="clearFilters()" end>Limpar Filtros</button>
+      </ion-item>
+    </ion-list>    
   </ion-content>
 </ion-menu>
 <ion-nav #mycontent></ion-nav>
@@ -65,11 +98,13 @@
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>
 
-  <ion-fab bottom right>
-    <button ion-fab mini color="marvel-light"><ion-icon name="ios-list-box-outline"></ion-icon></button>
+  <ion-fab bottom right #fab>
+    <button ion-fab mini color="vibrant"><ion-icon name="ios-list-box-outline"></ion-icon></button>
     <ion-fab-list side="top">
-      <button ion-fab color="dark"><ion-icon name="document"><div class="dark">Nome</div></ion-icon></button>
-      <button ion-fab color="dark"><ion-icon name="bookmarks"><div class="dark">Tipo</div></ion-icon></button>
+      <button ion-fab color="dark" (click)="changeOrder('name', fab)"><small>nome</small></button>
+      <button ion-fab color="dark" (click)="changeOrder('type', fab)"><small>tipo</small></button>
+      <button ion-fab color="dark" (click)="changeOrder('version', fab)"><small>versão</small></button>
+      <button ion-fab color="dark" (click)="changeOrder('´code', fab)"><small>código</small></button>
     </ion-fab-list>
   </ion-fab>
 </ion-content>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController, ToastController, AlertButton } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ToastController, AlertButton, LoadingController, FabContainer } from 'ionic-angular';
 import { CardsProvider } from '../../providers/cards/cards';
 import { CardInfo, CardUtils } from '../../models/card';
 import { AuthService } from '../../providers/auth-service/auth-service';
@@ -26,21 +26,29 @@ export class CardsPage {
   public page: number;
   public max_pages: number;
 
+  public order: string;
+  public orderType: string = 'DESC';
+
+  public typeCard: string;
+  public nameCard: string;
+
+  public where: {name?: any, type?: any} = {};
+
   constructor(public navCtrl: NavController, 
     public alertCtrl: AlertController,
     public navParams: NavParams, 
     public cards_service: CardsProvider, 
+    public loadCtrl: LoadingController,
     public auth: AuthService,
     public cardService: MyCardsProvider,
     public toastCtrl: ToastController) {  
     
     cards_service.count().subscribe((count) => {
-      this.count_cards = count.count;
-
       this.page = 1;
       this.skip = 0;
       this.limit = 20;
 
+      this.count_cards = count.count;
       this.max_pages = Math.ceil(this.count_cards / this.limit);
       this.loadCards();
     });
@@ -51,13 +59,20 @@ export class CardsPage {
   }
 
   loadCards(){
-    this.cards_service.get(this.limit, this.skip)
+    let load = this.loadCtrl.create({
+      content: 'Carregando'
+    });
+
+    load.present();
+    this.cards_service.get(this.limit, this.skip, this.order, this.orderType, this.where)
     .subscribe((value) => {
       this.cards = value;
 
       this.cards.forEach(element => {
         CardUtils.getImagesUrl(element);
       });
+
+      load.dismiss();
     });
   }
 
@@ -69,26 +84,6 @@ export class CardsPage {
       message: value
     });
     alert.present();
-  }
-
-  nextPage(){
-    if (this.page == this.max_pages)
-      return;
-    this.page++;
-    this.skip = (this.page - 1) * this.limit;
-    this.cards.length = 0;
-    
-    this.loadCards();
-  }
-
-  previousPage(){
-    if (this.page == 1)
-      return;
-    this.page--;
-    this.skip = (this.page - 1) * this.limit;
-    this.cards.length = 0;
-    
-    this.loadCards();
   }
 
   addToMyCards(card: CardInfo){
@@ -144,7 +139,7 @@ export class CardsPage {
     this.page++;
     this.skip = (this.page - 1) * this.limit;
   
-    this.cards_service.get(this.limit, this.skip)
+    this.cards_service.get(this.limit, this.skip, this.order, this.orderType, this.where)
     .subscribe((value) => {  
       value.forEach(element => {
         CardUtils.getImagesUrl(element);
@@ -155,4 +150,53 @@ export class CardsPage {
     });
   }
 
+  changeOrder(newOrder: string, fab: FabContainer){
+    if (newOrder == this.order) {
+      if (this.orderType == 'DESC') {
+        this.orderType = 'ASC';
+      } else {
+        this.orderType = 'DESC';
+      }
+    } else{
+      this.orderType = 'DESC';
+    }
+    
+    this.order = newOrder;
+    this.page = 1;
+    this.skip = 0;
+    this.cards.length = 0;
+    this.loadCards();
+    fab.close();
+  }
+
+  aplicarFiltros(){
+    this.where = {};
+    if (this.nameCard) {
+      this.where.name = {
+          like: this.nameCard
+        };
+    }
+    if (this.typeCard) {
+      this.where.type = {
+        like: this.typeCard
+      };
+    }
+
+    if (this.where != {}) {
+      this.page = 1;
+      this.skip = 0;
+      this.cards.length = 0;
+      this.loadCards(); 
+    }
+  }
+
+  clearFilters(){
+    this.where = {};
+    this.typeCard = '';
+    this.nameCard = '';
+    this.page = 1;
+    this.skip = 0;
+    this.cards.length = 0;
+    this.loadCards();
+  }
 }

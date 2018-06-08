@@ -24,10 +24,14 @@ export class MyCardsProvider {
     return this.cache.loadFromObservable(uri, result);
   }
 
-  getByUserId(uid: string):Observable<MyCard[]>{
+  getByUserId(uid: string, forceRefresher?: boolean):Observable<MyCard[]>{
     let uri = dataMlab.baseMlabApi + '/collections/cards?q={"uid": "'+uid+'"}&apiKey='+dataMlab.apiKey;
+    let groupCache = 'ByUserId';
+    if (forceRefresher) {
+      this.cache.clearGroup(groupCache);
+    }
     let result = this.http.get<MyCard[]>(uri);
-    return result;
+    return this.cache.loadFromObservable(uri, result, groupCache);
   }
 
   post(card: MyCard):Observable<any>{
