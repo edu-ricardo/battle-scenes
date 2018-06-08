@@ -8,6 +8,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { NavParamsMock, CardsProviderMock } from '../../../test-config/mocks-ionic';
 import { CardsProvider } from '../../providers/cards/cards';
 import { AuthService } from "../../providers/auth-service/auth-service";
+import { AngularFireAuth } from 'angularfire2/auth';
 
 describe('Cards', () => {
   let de: DebugElement;
@@ -24,7 +25,8 @@ describe('Cards', () => {
         NavController,
         { provide: NavParams, useClass: NavParamsMock },
         { provide: CardsProvider, useClass: CardsProviderMock},
-        AuthService
+        AuthService,
+        AngularFireAuth
       ]
     });
   }));
