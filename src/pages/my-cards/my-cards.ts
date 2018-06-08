@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController } from 'ionic-angular';
 import { MyCardsProvider } from '../../providers/my-cards/my-cards';
 import { CardsProvider } from '../../providers/cards/cards';
 import { AuthService } from '../../providers/auth-service/auth-service';
