@@ -12,6 +12,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { firebaseConfig } from '../../config';
 import { AngularFireModule } from 'angularfire2';
 import { MyCardsProvider } from '../../providers/my-cards/my-cards';
+import { HttpClient } from '@angular/common/http';
 
 describe('Cards', () => {
   let de: DebugElement;
@@ -31,7 +32,8 @@ describe('Cards', () => {
         { provide: CardsProvider, useClass: CardsProviderMock},
         AuthService,
         AngularFireAuth,
-        MyCardsProvider
+        MyCardsProvider,
+        HttpClient
       ]
     });
   }));
