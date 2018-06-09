@@ -9,6 +9,8 @@ import { NavParamsMock, CardsProviderMock } from '../../../test-config/mocks-ion
 import { CardsProvider } from '../../providers/cards/cards';
 import { AuthService } from "../../providers/auth-service/auth-service";
 import { AngularFireAuth } from 'angularfire2/auth';
+import { firebaseConfig } from '../../config';
+import { AngularFireModule } from 'angularfire2';
 
 describe('Cards', () => {
   let de: DebugElement;
@@ -19,7 +21,8 @@ describe('Cards', () => {
     TestBed.configureTestingModule({
       declarations: [CardsPage],
       imports: [
-        IonicModule.forRoot(CardsPage)
+        IonicModule.forRoot(CardsPage),
+        AngularFireModule.initializeApp(firebaseConfig.fire)
       ],
       providers: [
         NavController,
