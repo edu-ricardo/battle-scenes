@@ -11,6 +11,7 @@ import { AuthService } from "../../providers/auth-service/auth-service";
 import { AngularFireAuth } from 'angularfire2/auth';
 import { firebaseConfig } from '../../config';
 import { AngularFireModule } from 'angularfire2';
+import { MyCardsProvider } from '../../providers/my-cards/my-cards';
 
 describe('Cards', () => {
   let de: DebugElement;
@@ -29,7 +30,8 @@ describe('Cards', () => {
         { provide: NavParams, useClass: NavParamsMock },
         { provide: CardsProvider, useClass: CardsProviderMock},
         AuthService,
-        AngularFireAuth
+        AngularFireAuth,
+        MyCardsProvider
       ]
     });
   }));
