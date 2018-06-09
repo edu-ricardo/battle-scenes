@@ -32,7 +32,7 @@ export class CardsPage {
   public typeCard: string;
   public nameCard: string;
 
-  public where: {name?: any, type?: any} = {};
+  public where: {name?: any, type?: any, or?: any} = {};
 
   constructor(public navCtrl: NavController, 
     public alertCtrl: AlertController,
@@ -172,9 +172,15 @@ export class CardsPage {
   aplicarFiltros(){
     this.where = {};
     if (this.nameCard) {
-      this.where.name = {
-          like: this.nameCard
-        };
+      this.where.or = [
+        { name: {
+            like: this.nameCard
+          }
+        },
+        { alter_ego: {
+            like: this.nameCard
+          }
+        }];
     }
     if (this.typeCard) {
       this.where.type = {
