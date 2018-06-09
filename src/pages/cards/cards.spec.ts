@@ -5,7 +5,7 @@ import { CardsPage } from './cards';
 import { IonicModule, Platform, NavController, NavParams} from 'ionic-angular/index';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { NavParamsMock, CardsProviderMock } from '../../../test-config/mocks-ionic';
+import { NavParamsMock, CardsProviderMock, MyCardsProviderMock } from '../../../test-config/mocks-ionic';
 import { CardsProvider } from '../../providers/cards/cards';
 import { AuthService } from "../../providers/auth-service/auth-service";
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -32,8 +32,7 @@ describe('Cards', () => {
         { provide: CardsProvider, useClass: CardsProviderMock},
         AuthService,
         AngularFireAuth,
-        MyCardsProvider,
-        HttpClient
+        { provide: MyCardsProvider, useClass: MyCardsProviderMock}
       ]
     });
   }));
