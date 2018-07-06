@@ -4,12 +4,12 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
 import { CardsPage } from '../pages/cards/cards';
 import { PalavrasChavesPage } from '../pages/palavras-chaves/palavras-chaves';
 import { LoginPage } from '../pages/login/login';
 import { AuthService } from '../providers/auth-service/auth-service';
 import * as firebase from 'firebase/app';
+import { MyCardsPage } from '../pages/my-cards/my-cards';
 @Component({
   templateUrl: 'app.html'
 })
@@ -18,17 +18,17 @@ export class MyApp {
 
   rootPage: any = LoginPage;// HomePage;
   user: firebase.User;
-  pages: Array<{title: string, component: any, authNeed?: boolean}>;
+  pages: Array<{title: string, component: any, icon: string, authNeed?: boolean}>;
 
   constructor(public platform: Platform, public menu: MenuController,public statusBar: StatusBar, public splashScreen: SplashScreen, public auth: AuthService) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'Cards', component: CardsPage },
-      { title: 'Lista 1', component: ListPage, authNeed: true },
-      { title: 'Palavras Chaves', component: PalavrasChavesPage }
+      { title: 'Home', component: HomePage, icon: 'home' },
+      { title: 'Cards', component: CardsPage, icon: 'albums' },
+      { title: 'Palavras Chaves', component: PalavrasChavesPage, icon: 'key' },
+      { title: 'Meus Cards', component: MyCardsPage, icon: 'archive', authNeed: true }
     ];    
   }
 

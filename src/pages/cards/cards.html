@@ -10,9 +10,59 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Cards</ion-title>
+    <button ion-button menuToggle="right" end>
+        <ion-icon name='options'></ion-icon>
+    </button>
   </ion-navbar>
 
 </ion-header>
+<ion-menu side="right" [content]="mycontent">
+  <ion-content>
+    <ion-list>
+      <ion-item><h2>Filtros</h2></ion-item>
+      <ion-item>
+          <ion-label color="primary" floating>Nome</ion-label>
+          <ion-input [(ngModel)]="nameCard"></ion-input>
+      </ion-item>
+        <ion-list radio-group [(ngModel)]="typeCard">
+
+          <ion-list-header>
+            Tipo
+          </ion-list-header>
+        
+          <ion-item>
+            <ion-label>Personagem</ion-label>
+            <ion-radio value="Personagem"></ion-radio>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Personagem - EV</ion-label>
+            <ion-radio value="Personagem - EV"></ion-radio>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Cenário</ion-label>
+            <ion-radio value="Cenário"></ion-radio>
+          </ion-item>
+          
+          <ion-item>
+            <ion-label>Habilidade</ion-label>
+            <ion-radio value="Habilidade"></ion-radio>
+          </ion-item>
+  
+          <ion-item>
+            <ion-label>Suporte</ion-label>
+            <ion-radio value="Suporte"></ion-radio>
+          </ion-item>          
+        </ion-list>
+      <ion-item>
+        <button ion-button round outline color="secondary" menuClose="right" (click)="aplicarFiltros()">Aplicar</button>
+        <button ion-button round outline color="danger" (click)="clearFilters()">Limpar Filtros</button>
+      </ion-item>
+    </ion-list>    
+  </ion-content>
+</ion-menu>
+<ion-nav #mycontent></ion-nav>
 
 <ion-content padding>
   <ion-list>
@@ -34,7 +84,7 @@
       </ion-card-content>
       <ion-row no-padding>
           <ion-col>
-            <button ion-button clear small color="primary" icon-start>
+            <button ion-button clear small (click)="addToMyCards(card)" color="primary" icon-start>
               <ion-icon name='add-circle'></ion-icon>
               Tenho
             </button>
@@ -52,4 +102,14 @@
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>
+
+  <ion-fab bottom right #fab>
+    <button ion-fab mini color="vibrant"><ion-icon name="ios-list-box-outline"></ion-icon></button>
+    <ion-fab-list side="top">
+      <button ion-fab color="dark" (click)="changeOrder('name', fab)"><small>nome</small></button>
+      <button ion-fab color="dark" (click)="changeOrder('type', fab)"><small>tipo</small></button>
+      <button ion-fab color="dark" (click)="changeOrder('version', fab)"><small>versão</small></button>
+      <button ion-fab color="dark" (click)="changeOrder('´code', fab)"><small>código</small></button>
+    </ion-fab-list>
+  </ion-fab>
 </ion-content>

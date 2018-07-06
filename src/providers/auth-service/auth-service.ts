@@ -28,11 +28,15 @@ export class AuthService {
   }
 
   get ImageUrl():string{
-    return this.user.photoURL;
+    return this.user.photoURL || 'assets/imgs/default-user.png';
   }
 
   get nome():string{
     return this.user.displayName;
+  }
+
+  get email():string{
+    return this.user.email;
   }
 
   get authenticated(): boolean{

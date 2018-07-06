@@ -19,7 +19,7 @@ export class CardListItem{
     collectionId: string;
 }
 
-export class Card {
+export class CardInfo {
     code: number;
     version: string;
     name: string;
@@ -47,7 +47,7 @@ export class Card {
 }
 
 export class CardUtils{
-    static getImagesUrl(Card: Card):Array<string>{
+    static getImagesUrl(Card: CardInfo):Array<string>{
         Card.ImagesUrl = new Array<string>();
         Card.card_list.forEach(card => {
             Card.ImagesUrl.push(IMAGE_URL_BASE + card.site_name + '.png');

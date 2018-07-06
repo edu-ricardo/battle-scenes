@@ -1,0 +1,35 @@
+<!--
+  Generated template for the MyCardsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="marvel">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Meus Cards</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>  
+    <ion-card *ngFor="let card of myCards">
+        <ion-slides pager>
+            <img [src]="card.image" [alt]="card.name"/>
+        </ion-slides>
+        <ion-card-content>
+          <ion-card-title>
+              {{ card.name }}
+          </ion-card-title>
+          <h2>{{ card.code }}</h2>
+          {{ card.rarity }}  
+        </ion-card-content>
+      </ion-card>
+</ion-content>

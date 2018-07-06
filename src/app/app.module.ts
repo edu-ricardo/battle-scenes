@@ -28,6 +28,8 @@ import { AuthService } from '../providers/auth-service/auth-service';
 
 import { NgxErrorsModule } from '@ultimate/ngxerrors';
 import { SignupPage } from '../pages/signup/signup';
+import { MyCardsProvider } from '../providers/my-cards/my-cards';
+import { MyCardsPage } from '../pages/my-cards/my-cards';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,8 @@ import { SignupPage } from '../pages/signup/signup';
     CardsPage,
     PalavrasChavesPage,
     LoginPage,
-    SignupPage
+    SignupPage,
+    MyCardsPage
   ],
   imports: [
     BrowserModule,
@@ -59,7 +62,8 @@ import { SignupPage } from '../pages/signup/signup';
     CardsPage, 
     LoginPage,
     PalavrasChavesPage,
-    SignupPage
+    SignupPage,
+    MyCardsPage
   ],
   providers: [
     StatusBar,
@@ -68,7 +72,8 @@ import { SignupPage } from '../pages/signup/signup';
     KeywordsProvider,
     AngularFireAuth,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthService
+    AuthService,
+    MyCardsProvider
   ]
 })
 export class AppModule {}

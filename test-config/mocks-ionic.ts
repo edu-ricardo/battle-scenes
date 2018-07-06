@@ -2,7 +2,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import {Observable} from "rxjs/Rx";
-import { Card } from '../src/models/card';
+import { CardInfo } from '../src/models/card';
+import { MyCard } from '../src/models/my-card';
 
 export class PlatformMock {
   public ready(): Promise<string> {
@@ -132,15 +133,15 @@ export class NavParamsMock {
 
 export class CardsProviderMock {
 
-  public get(limit?: number, skip?: number): Observable<Card[]> {
-    return (new Observable<Card[]>((subscriber) =>{
+  public get(limit?: number, skip?: number): Observable<CardInfo[]> {
+    return (new Observable<CardInfo[]>((subscriber) =>{
       subscriber.next([]);
       subscriber.complete();
     }));
   }
 
-  public getO(): Observable<Card[]> {    
-    return (new Observable<Card[]>((subscriber) =>{
+  public getO(): Observable<CardInfo[]> {    
+    return (new Observable<CardInfo[]>((subscriber) =>{
       subscriber.next([]);
       subscriber.complete();
     }));
@@ -153,4 +154,18 @@ export class CardsProviderMock {
     }));
   }
 
+}
+
+export class MyCardsProviderMock{
+  get():Observable<MyCard[]>{
+    return;
+  }
+
+  getByUserId(uid: string, forceRefresher?: boolean):Observable<MyCard[]>{
+    return;
+  }
+
+  post(card: MyCard):Observable<any>{    
+    return ;
+  }
 }
