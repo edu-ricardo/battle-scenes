@@ -5,10 +5,17 @@ import { CardsPage } from './cards';
 import { IonicModule, Platform, NavController, NavParams} from 'ionic-angular/index';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { NavParamsMock, CardsProviderMock } from '../../../test-config/mocks-ionic';
+import { NavParamsMock, CardsProviderMock, MyCardsProviderMock } from '../../../test-config/mocks-ionic';
 import { CardsProvider } from '../../providers/cards/cards';
 import { AuthService } from "../../providers/auth-service/auth-service";
 import { AngularFireAuth } from 'angularfire2/auth';
+<<<<<<< HEAD
+=======
+import { firebaseConfig } from '../../config';
+import { AngularFireModule } from 'angularfire2';
+import { MyCardsProvider } from '../../providers/my-cards/my-cards';
+import { HttpClient } from '@angular/common/http';
+>>>>>>> 49f35352b4bb7cfb3c8f1ac002e18be4f465491d
 
 describe('Cards', () => {
   let de: DebugElement;
@@ -19,14 +26,20 @@ describe('Cards', () => {
     TestBed.configureTestingModule({
       declarations: [CardsPage],
       imports: [
-        IonicModule.forRoot(CardsPage)
+        IonicModule.forRoot(CardsPage),
+        AngularFireModule.initializeApp(firebaseConfig.fire)
       ],
       providers: [
         NavController,
         { provide: NavParams, useClass: NavParamsMock },
         { provide: CardsProvider, useClass: CardsProviderMock},
         AuthService,
+<<<<<<< HEAD
         AngularFireAuth
+=======
+        AngularFireAuth,
+        { provide: MyCardsProvider, useClass: MyCardsProviderMock}
+>>>>>>> 49f35352b4bb7cfb3c8f1ac002e18be4f465491d
       ]
     });
   }));
